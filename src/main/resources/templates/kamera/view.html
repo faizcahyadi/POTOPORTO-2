@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/fragments :: pageHead('Detail Kamera')}"></head>
+<body>
+<nav th:replace="~{fragments/fragments :: navbar}"></nav>
+<div class="app-container">
+    <div th:replace="~{fragments/fragments :: sidebar('kamera')}"></div>
+    <main class="app-content">
+        <h2 class="mb-1 fw-bold">Detail Kamera</h2>
+        <p class="text-muted mb-4">Informasi lengkap data kamera</p>
+        <div class="card border-0 shadow-sm" style="max-width: 600px;">
+            <div class="card-body">
+                <table class="table table-borderless mb-0">
+                    <tr><th class="w-25">Nama Kamera</th><td th:text="${kamera.namaKamera}">-</td></tr>
+                    <tr><th>Merk</th><td th:text="${kamera.merk}">-</td></tr>
+                    <tr><th>Deskripsi</th><td th:text="${kamera.deskripsi}">-</td></tr>
+                </table>
+                <a th:href="@{/admin/kamera/list}" class="btn btn-outline-secondary mt-3">
+                    <i class="bi bi-arrow-left me-1"></i>Kembali
+                </a>
+            </div>
+        </div>
+    </main>
+</div>
+<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>

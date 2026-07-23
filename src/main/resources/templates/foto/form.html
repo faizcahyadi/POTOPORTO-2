@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/fragments :: pageHead(${mode == 'add'} ? 'Tambah Foto' : 'Edit Foto')}"></head>
+<body>
+<nav th:replace="~{fragments/fragments :: navbar}"></nav>
+<div class="app-container">
+    <div th:replace="~{fragments/fragments :: sidebar('foto')}"></div>
+    <main class="app-content">
+        <h2 class="mb-1 fw-bold" th:text="${mode == 'add'} ? 'Tambah Foto' : 'Edit Foto'">Form Foto</h2>
+        <p class="text-muted mb-4">Lengkapi form berikut</p>
+
+        <div class="card border-0 shadow-sm" style="max-width: 700px;">
+            <div class="card-body">
+                <form th:action="@{/admin/foto/save}" th:object="${foto}" method="post">
+                    <input type="hidden" th:field="*{id}">
+
+                    <div class="mb-3">
+                        <label class="form-label">Judul</label>
+                        <input type="text" class="form-control" th:field="*{judul}" placeholder="Judul foto">
+                        <div class="text-danger small" th:if="${#fields.hasErrors('judul')}" th:errors="*{judul}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nama File Gambar</label>
+                        <input type="text" class="form-control" th:field="*{namaFile}" placeholder="Contoh: foto1.jpg (letakkan file pada folder static/images)">
+                        <div class="form-text">File gambar diletakkan manual di folder <code>static/images</code>. Isi hanya nama filenya.</div>
+                        <div class="text-danger small" th:if="${#fields.hasErrors('namaFile')}" th:errors="*{namaFile}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea class="form-control" th:field="*{deskripsi}" rows="3" placeholder="Deskripsi foto"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Tanggal Upload</label>
+                        <input type="date" class="form-control" th:field="*{tanggalUpload}">
+                        <div class="text-danger small" th:if="${#fields.hasErrors('tanggalUpload')}" th:errors="*{tanggalUpload}"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Kamera</label>
+                            <select class="form-select" th:field="*{kamera}">
+                                <option value="">-- Pilih Kamera --</option>
+                                <option th:each="k : ${kameraList}" th:value="${k.id}" th:text="${k.namaKamera}"></option>
+                            </select>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('kamera')}" th:errors="*{kamera}"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Lokasi</label>
+                            <select class="form-select" th:field="*{lokasi}">
+                                <option value="">-- Pilih Lokasi --</option>
+                                <option th:each="l : ${lokasiList}" th:value="${l.id}" th:text="${l.namaLokasi}"></option>
+                            </select>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('lokasi')}" th:errors="*{lokasi}"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-select" th:field="*{kategori}">
+                                <option value="">-- Pilih Kategori --</option>
+                                <option th:each="c : ${kategoriList}" th:value="${c.id}" th:text="${c.namaKategori}"></option>
+                            </select>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('kategori')}" th:errors="*{kategori}"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Uploader (User)</label>
+                            <select class="form-select" th:field="*{user}">
+                                <option value="">-- Pilih User --</option>
+                                <option th:each="u : ${userList}" th:value="${u.id}" th:text="${u.nama}"></option>
+                            </select>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan</button>
+                        <a th:href="@{/admin/foto/list}" class="btn btn-outline-secondary">Batal</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>

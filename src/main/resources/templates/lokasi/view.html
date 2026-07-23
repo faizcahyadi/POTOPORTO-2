@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/fragments :: pageHead('Detail Lokasi')}"></head>
+<body>
+<nav th:replace="~{fragments/fragments :: navbar}"></nav>
+<div class="app-container">
+    <div th:replace="~{fragments/fragments :: sidebar('lokasi')}"></div>
+    <main class="app-content">
+        <h2 class="mb-1 fw-bold">Detail Lokasi</h2>
+        <p class="text-muted mb-4">Informasi lengkap data lokasi</p>
+        <div class="card border-0 shadow-sm" style="max-width: 600px;">
+            <div class="card-body">
+                <table class="table table-borderless mb-0">
+                    <tr><th class="w-25">Nama Lokasi</th><td th:text="${lokasi.namaLokasi}">-</td></tr>
+                    <tr><th>Kota</th><td th:text="${lokasi.kota}">-</td></tr>
+                    <tr><th>Deskripsi</th><td th:text="${lokasi.deskripsi}">-</td></tr>
+                </table>
+                <a th:href="@{/admin/lokasi/list}" class="btn btn-outline-secondary mt-3">
+                    <i class="bi bi-arrow-left me-1"></i>Kembali
+                </a>
+            </div>
+        </div>
+    </main>
+</div>
+<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>

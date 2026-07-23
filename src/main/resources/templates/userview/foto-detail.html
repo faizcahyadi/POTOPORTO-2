@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/fragments :: pageHead('Detail Foto')}"></head>
+<body>
+<nav th:replace="~{fragments/fragments :: navbar}"></nav>
+
+<div class="container py-4">
+    <div th:replace="~{fragments/fragments :: alerts}"></div>
+
+    <div class="card border-0 shadow-sm" style="max-width: 800px; margin: 0 auto;">
+        <img th:src="@{'/images/' + ${foto.namaFile}}" onerror="this.src='/images/placeholder.jpg'" class="detail-img-full" alt="foto">
+        <div class="card-body">
+            <h3 class="fw-bold mb-2" th:text="${foto.judul}">Judul Foto</h3>
+            <span class="badge bg-info-subtle text-info mb-3" th:text="${foto.kategori.namaKategori}">Kategori</span>
+            <p class="text-muted" th:text="${foto.deskripsi}">Deskripsi foto</p>
+            <table class="table table-borderless mb-0">
+                <tr><th class="w-25">Tanggal Upload</th><td th:text="${#temporals.format(foto.tanggalUpload, 'dd-MM-yyyy')}">-</td></tr>
+                <tr><th>Kamera</th><td th:text="${foto.kamera.namaKamera} + ' (' + ${foto.kamera.merk} + ')'">-</td></tr>
+                <tr><th>Lokasi</th><td th:text="${foto.lokasi.namaLokasi} + ', ' + ${foto.lokasi.kota}">-</td></tr>
+                <tr><th>Diunggah oleh</th><td th:text="${foto.user.nama}">-</td></tr>
+            </table>
+            <a th:href="@{/foto/list}" class="btn btn-outline-secondary mt-2">
+                <i class="bi bi-arrow-left me-1"></i>Kembali ke Galeri
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>

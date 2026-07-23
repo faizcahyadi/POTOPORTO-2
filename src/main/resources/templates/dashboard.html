@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/fragments :: pageHead('Dashboard')}"></head>
+<body>
+<nav th:replace="~{fragments/fragments :: navbar}"></nav>
+
+<div class="app-container">
+    <div th:replace="~{fragments/fragments :: sidebar('dashboard')}"></div>
+
+    <main class="app-content">
+        <h2 class="mb-1 fw-bold">Dashboard</h2>
+        <p class="text-muted mb-4">Ringkasan data Photography Portfolio</p>
+
+        <div th:replace="~{fragments/fragments :: alerts}"></div>
+
+        <div class="row g-3">
+            <div class="col-6 col-md-4 col-xl-2-4">
+                <div class="card stat-card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="stat-icon bg-primary-subtle text-primary"><i class="bi bi-people-fill"></i></div>
+                        <h3 class="fw-bold mb-0" th:text="${stats.totalUser}">0</h3>
+                        <p class="text-muted small mb-0">Total User</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2-4">
+                <div class="card stat-card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="stat-icon bg-success-subtle text-success"><i class="bi bi-images"></i></div>
+                        <h3 class="fw-bold mb-0" th:text="${stats.totalFoto}">0</h3>
+                        <p class="text-muted small mb-0">Total Foto</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2-4">
+                <div class="card stat-card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="stat-icon bg-warning-subtle text-warning"><i class="bi bi-camera2"></i></div>
+                        <h3 class="fw-bold mb-0" th:text="${stats.totalKamera}">0</h3>
+                        <p class="text-muted small mb-0">Total Kamera</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2-4">
+                <div class="card stat-card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="stat-icon bg-danger-subtle text-danger"><i class="bi bi-geo-alt-fill"></i></div>
+                        <h3 class="fw-bold mb-0" th:text="${stats.totalLokasi}">0</h3>
+                        <p class="text-muted small mb-0">Total Lokasi</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-xl-2-4">
+                <div class="card stat-card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="stat-icon bg-info-subtle text-info"><i class="bi bi-tags-fill"></i></div>
+                        <h3 class="fw-bold mb-0" th:text="${stats.totalKategori}">0</h3>
+                        <p class="text-muted small mb-0">Total Kategori</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mt-4">
+            <div class="card-body">
+                <h5 class="fw-semibold mb-3"><i class="bi bi-info-circle me-2"></i>Selamat Datang</h5>
+                <p class="text-muted mb-0">
+                    Gunakan menu di samping untuk mengelola data User, Foto, Kamera, Lokasi, dan Kategori.
+                    Semua perubahan akan langsung tersimpan ke database MySQL.
+                </p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>

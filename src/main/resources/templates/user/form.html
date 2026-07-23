@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/fragments :: pageHead(${mode == 'add'} ? 'Tambah User' : 'Edit User')}"></head>
+<body>
+<nav th:replace="~{fragments/fragments :: navbar}"></nav>
+<div class="app-container">
+    <div th:replace="~{fragments/fragments :: sidebar('user')}"></div>
+    <main class="app-content">
+        <h2 class="mb-1 fw-bold" th:text="${mode == 'add'} ? 'Tambah User' : 'Edit User'">Form User</h2>
+        <p class="text-muted mb-4">Lengkapi form berikut</p>
+
+        <div class="card border-0 shadow-sm" style="max-width: 600px;">
+            <div class="card-body">
+                <form th:action="@{/admin/user/save}" th:object="${user}" method="post">
+                    <input type="hidden" th:field="*{id}">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nama</label>
+                        <input type="text" class="form-control" th:field="*{nama}" placeholder="Nama lengkap">
+                        <div class="text-danger small" th:if="${#fields.hasErrors('nama')}" th:errors="*{nama}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" th:field="*{email}" placeholder="nama@email.com">
+                        <div class="text-danger small" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Password
+                            <span class="text-muted small" th:if="${mode == 'edit'}">(kosongkan jika tidak diubah)</span>
+                        </label>
+                        <input type="password" class="form-control" th:field="*{password}" placeholder="Password">
+                        <div class="text-danger small" th:if="${mode == 'add'} and ${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan</button>
+                        <a th:href="@{/admin/user/list}" class="btn btn-outline-secondary">Batal</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>

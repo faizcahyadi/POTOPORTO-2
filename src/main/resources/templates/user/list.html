@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/fragments :: pageHead('Data User')}"></head>
+<body>
+<nav th:replace="~{fragments/fragments :: navbar}"></nav>
+<div class="app-container">
+    <div th:replace="~{fragments/fragments :: sidebar('user')}"></div>
+    <main class="app-content">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <div>
+                <h2 class="mb-1 fw-bold">Data User</h2>
+                <p class="text-muted mb-0">Kelola akun pengguna website</p>
+            </div>
+            <a th:href="@{/admin/user/add}" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-1"></i>Tambah User
+            </a>
+        </div>
+
+        <div th:replace="~{fragments/fragments :: alerts}"></div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <form th:action="@{/admin/user/list}" method="get" class="mb-3">
+                    <div class="input-group" style="max-width: 350px;">
+                        <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="Cari nama atau email...">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th class="text-end">Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${#lists.isEmpty(users)}">
+                            <td colspan="4" class="text-center text-muted py-4">Belum ada data user</td>
+                        </tr>
+                        <tr th:each="u, iter : ${users}">
+                            <td th:text="${iter.count}">1</td>
+                            <td th:text="${u.nama}">Nama</td>
+                            <td th:text="${u.email}">email@example.com</td>
+                            <td class="text-end">
+                                <a th:href="@{/admin/user/view/{id}(id=${u.id})}" class="btn btn-sm btn-outline-info" title="Lihat"><i class="bi bi-eye"></i></a>
+                                <a th:href="@{/admin/user/edit/{id}(id=${u.id})}" class="btn btn-sm btn-outline-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                                <a th:href="@{/admin/user/delete/{id}(id=${u.id})}" class="btn btn-sm btn-outline-danger btn-delete" title="Hapus"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/fragments :: pageHead('Data Lokasi')}"></head>
+<body>
+<nav th:replace="~{fragments/fragments :: navbar}"></nav>
+<div class="app-container">
+    <div th:replace="~{fragments/fragments :: sidebar('lokasi')}"></div>
+    <main class="app-content">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <div>
+                <h2 class="mb-1 fw-bold">Data Lokasi</h2>
+                <p class="text-muted mb-0">Kelola daftar lokasi pemotretan</p>
+            </div>
+            <a th:href="@{/admin/lokasi/add}" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-1"></i>Tambah Lokasi
+            </a>
+        </div>
+
+        <div th:replace="~{fragments/fragments :: alerts}"></div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <form th:action="@{/admin/lokasi/list}" method="get" class="mb-3">
+                    <div class="input-group" style="max-width: 350px;">
+                        <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="Cari nama atau kota...">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Nama Lokasi</th>
+                            <th>Kota</th>
+                            <th>Deskripsi</th>
+                            <th class="text-end">Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${#lists.isEmpty(lokasiList)}">
+                            <td colspan="5" class="text-center text-muted py-4">Belum ada data lokasi</td>
+                        </tr>
+                        <tr th:each="l, iter : ${lokasiList}">
+                            <td th:text="${iter.count}">1</td>
+                            <td th:text="${l.namaLokasi}">Nama</td>
+                            <td th:text="${l.kota}">Kota</td>
+                            <td th:text="${l.deskripsi}">Deskripsi</td>
+                            <td class="text-end">
+                                <a th:href="@{/admin/lokasi/view/{id}(id=${l.id})}" class="btn btn-sm btn-outline-info" title="Lihat"><i class="bi bi-eye"></i></a>
+                                <a th:href="@{/admin/lokasi/edit/{id}(id=${l.id})}" class="btn btn-sm btn-outline-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+                                <a th:href="@{/admin/lokasi/delete/{id}(id=${l.id})}" class="btn btn-sm btn-outline-danger btn-delete" title="Hapus"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<div th:replace="~{fragments/fragments :: scripts}"></div>
+</body>
+</html>
