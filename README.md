@@ -220,4 +220,4 @@ Kalau environment variable ini tidak di-set, aplikasi otomatis fallback ke konfi
 
 ---
 
-Selamat mencoba! 📸
+Selamat mencoba! 
